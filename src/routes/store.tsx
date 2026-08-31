@@ -37,7 +37,7 @@ export const Route = createFileRoute("/store")({
       },
     ],
   }),
-  component: StorePage,
+  component: StorePage;
 });
 
 const tabs = ["All Products", "Bestsellers", "New Launches"] as const;
