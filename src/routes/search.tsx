@@ -148,8 +148,8 @@ function SearchPage() {
           </button>
         )}
       </div>
-
-
+      {tab === "Products" ? (
+      <>
       {/* Filter chips */}
       <div className="rail mt-2 px-3">
         <button className="flex shrink-0 items-center gap-1.5 rounded-lg border border-primary px-2.5 py-1.5 text-[12px] font-semibold text-primary">
