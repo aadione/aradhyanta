@@ -34,24 +34,26 @@ function SearchPage() {
   const router = useRouter();
   const { q } = Route.useSearch();
   const { cartCount } = useShop();
-  const [query, setQuery] = useState(q ?? "wireless earbuds");
+  const [query, setQuery] = useState(q ?? "");
   const [brandFilter, setBrandFilter] = useState<string[]>([]);
   const [sort, setSort] = useState<"Relevance" | "Price: Low to High" | "Discount">("Relevance");
 
+  const term = query.trim().toLowerCase();
+  const hasQuery = term.length > 0;
+
   const results = useMemo(() => {
-    const term = query.trim().toLowerCase();
     let list = term
       ? allProducts.filter((p) =>
           `${p.brand} ${p.name} ${p.category}`.toLowerCase().includes(term.replace("wireless earbuds", "earbuds")),
         )
       : products;
-    if (!list.length) list = products;
     if (brandFilter.length) list = list.filter((p) => brandFilter.includes(p.brand));
     if (sort === "Price: Low to High") list = [...list].sort((a, b) => a.price - b.price);
     if (sort === "Discount")
       list = [...list].sort((a, b) => (b.mrp - b.price) / b.mrp - (a.mrp - a.price) / a.mrp);
     return list;
-  }, [query, brandFilter, sort]);
+  }, [term, brandFilter, sort]);
+
 
   const toggleBrand = (b: string) =>
     setBrandFilter((prev) => (prev.includes(b) ? prev.filter((x) => x !== b) : [...prev, b]));
