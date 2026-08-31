@@ -226,6 +226,38 @@ function SearchPage() {
         </p>
       )}
 
+      {/* Shops matching the query */}
+      {shopResults.length > 0 && (
+        <section className="px-3 pt-3">
+          <div className="flex items-baseline justify-between">
+            <h2 className="text-[14px] font-bold text-foreground">Shops you may like</h2>
+            <button onClick={() => setTab("Shops")} className="text-[11px] font-semibold text-primary">
+              View all
+            </button>
+          </div>
+          <div className="mt-2 flex flex-col gap-2">
+            {shopResults.slice(0, 2).map((s) => (
+              <StoreCard key={s.id} store={s} />
+            ))}
+          </div>
+        </section>
+      )}
+      </>
+      ) : (
+        <section className="flex flex-col gap-2 px-3 pt-2.5">
+          {shopResults.map((s) => (
+            <StoreCard key={s.id} store={s} />
+          ))}
+          {shopResults.length === 0 && (
+            <p className="pt-6 text-center text-[12px] text-muted-foreground">
+              No shops found for “{query}”.
+            </p>
+          )}
+        </section>
+      )}
+
+
+
 
       {/* Request product */}
       <section className="px-3 pt-3">
