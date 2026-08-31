@@ -145,10 +145,15 @@ export function ProductCardGrid2({ product }: { product: Product }) {
 }
 
 /** Horizontal rail card used for "Best Deals for You". */
-export function ProductCardRail({ product }: { product: Product }) {
+export function ProductCardRail({ product, fluid = false }: { product: Product; fluid?: boolean }) {
   const { add } = useShop();
   return (
-    <div className="relative w-[150px] shrink-0 overflow-hidden rounded-xl border border-border bg-card">
+    <div
+      className={`relative overflow-hidden rounded-xl border border-border bg-card ${
+        fluid ? "w-full" : "w-[150px] shrink-0"
+      }`}
+    >
+
       <DiscountBadge pct={off(product)} />
       <Link to="/product/$id" params={{ id: product.id }} className="block bg-surface px-3 pb-1 pt-6">
         <img
