@@ -55,6 +55,14 @@ function SearchPage() {
     return list;
   }, [term, brandFilter, sort]);
 
+  const shopResults = useMemo(
+    () =>
+      term ? stores.filter((s) => `${s.name} ${s.category}`.toLowerCase().includes(term)) : stores,
+    [term],
+  );
+
+
+
 
   const toggleBrand = (b: string) =>
     setBrandFilter((prev) => (prev.includes(b) ? prev.filter((x) => x !== b) : [...prev, b]));
