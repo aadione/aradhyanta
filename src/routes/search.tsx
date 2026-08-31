@@ -174,12 +174,18 @@ function SearchPage() {
         </div>
       </section>
 
-      {/* 3-column results grid */}
-      <section className="grid grid-cols-3 gap-2 px-3 pt-2.5">
+      {/* Results grid — home-style cards */}
+      <section className="grid grid-cols-2 gap-2 px-3 pt-2.5">
         {results.map((p) => (
-          <ProductCardGrid3 key={p.id} product={p} />
+          <ProductCardRail key={p.id} product={p} fluid />
         ))}
       </section>
+      {hasQuery && results.length === 0 && (
+        <p className="px-3 pt-6 text-center text-[12px] text-muted-foreground">
+          No products found for “{query}”.
+        </p>
+      )}
+
 
       {/* Request product */}
       <section className="px-3 pt-3">
