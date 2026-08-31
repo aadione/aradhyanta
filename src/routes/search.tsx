@@ -2,10 +2,11 @@ import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { z } from "zod";
 import { ArrowLeft, Search as SearchIcon, X, Mic, ShoppingCart, SlidersHorizontal, ChevronDown, Tag } from "lucide-react";
-import { allProducts, products } from "@/lib/data";
+import { allProducts, products, stores } from "@/lib/data";
 import { useShop } from "@/lib/shop-store";
 import { BottomNav } from "@/components/BottomNav";
 import { ProductCardRail } from "@/components/ProductCard";
+import { StoreCard } from "@/components/StoreCard";
 
 export const Route = createFileRoute("/search")({
   validateSearch: z.object({ q: z.string().optional() }),
@@ -37,6 +38,7 @@ function SearchPage() {
   const [query, setQuery] = useState(q ?? "");
   const [brandFilter, setBrandFilter] = useState<string[]>([]);
   const [sort, setSort] = useState<"Relevance" | "Price: Low to High" | "Discount">("Relevance");
+  const [tab, setTab] = useState<"Products" | "Shops">("Products");
 
   const term = query.trim().toLowerCase();
   const hasQuery = term.length > 0;
@@ -53,6 +55,14 @@ function SearchPage() {
       list = [...list].sort((a, b) => (b.mrp - b.price) / b.mrp - (a.mrp - a.price) / a.mrp);
     return list;
   }, [term, brandFilter, sort]);
+
+  const shopResults = useMemo(
+    () =>
+      term ? stores.filter((s) => `${s.name} ${s.category}`.toLowerCase().includes(term)) : stores,
+    [term],
+  );
+
+
 
 
   const toggleBrand = (b: string) =>
@@ -91,26 +101,55 @@ function SearchPage() {
         </div>
       </header>
 
-      {/* Results head */}
-      <div className="flex items-baseline justify-between px-3 pt-1">
-        <p className="text-[14px] font-bold text-foreground">
-          {hasQuery ? <>Results for “{query}”</> : <>Popular products</>}{" "}
-          <span className="text-[11px] font-normal text-muted-foreground">({results.length} results)</span>
-        </p>
-
-        <button
-          onClick={() =>
-            setSort((s) =>
-              s === "Relevance" ? "Price: Low to High" : s === "Price: Low to High" ? "Discount" : "Relevance",
-            )
-          }
-          className="flex shrink-0 items-center gap-1 text-[11px] text-muted-foreground"
-        >
-          Sort by <span className="font-semibold text-foreground">{sort}</span>
-          <ChevronDown size={12} />
-        </button>
+      {/* Products / Shops tabs */}
+      <div className="mt-1 flex gap-4 border-b border-border px-3">
+        {(["Products", "Shops"] as const).map((t) => (
+          <button
+            key={t}
+            onClick={() => setTab(t)}
+            className={`-mb-px border-b-2 pb-2 pt-1 text-[13px] font-semibold ${
+              tab === t ? "border-primary text-primary" : "border-transparent text-muted-foreground"
+            }`}
+          >
+            {t}{" "}
+            <span className="text-[10px] font-normal">
+              ({t === "Products" ? results.length : shopResults.length})
+            </span>
+          </button>
+        ))}
       </div>
 
+      {/* Results head */}
+      <div className="flex items-baseline justify-between px-3 pt-2">
+        <p className="text-[14px] font-bold text-foreground">
+          {hasQuery ? (
+            <>Results for “{query}”</>
+          ) : tab === "Shops" ? (
+            <>Popular shops</>
+          ) : (
+            <>Popular products</>
+          )}{" "}
+          <span className="text-[11px] font-normal text-muted-foreground">
+            ({tab === "Products" ? results.length : shopResults.length} results)
+          </span>
+        </p>
+
+        {tab === "Products" && (
+          <button
+            onClick={() =>
+              setSort((s) =>
+                s === "Relevance" ? "Price: Low to High" : s === "Price: Low to High" ? "Discount" : "Relevance",
+              )
+            }
+            className="flex shrink-0 items-center gap-1 text-[11px] text-muted-foreground"
+          >
+            Sort by <span className="font-semibold text-foreground">{sort}</span>
+            <ChevronDown size={12} />
+          </button>
+        )}
+      </div>
+      {tab === "Products" ? (
+      <>
       {/* Filter chips */}
       <div className="rail mt-2 px-3">
         <button className="flex shrink-0 items-center gap-1.5 rounded-lg border border-primary px-2.5 py-1.5 text-[12px] font-semibold text-primary">
@@ -186,6 +225,38 @@ function SearchPage() {
           No products found for “{query}”.
         </p>
       )}
+
+      {/* Shops matching the query */}
+      {shopResults.length > 0 && (
+        <section className="px-3 pt-3">
+          <div className="flex items-baseline justify-between">
+            <h2 className="text-[14px] font-bold text-foreground">Shops you may like</h2>
+            <button onClick={() => setTab("Shops")} className="text-[11px] font-semibold text-primary">
+              View all
+            </button>
+          </div>
+          <div className="mt-2 flex flex-col gap-2">
+            {shopResults.slice(0, 2).map((s) => (
+              <StoreCard key={s.id} store={s} />
+            ))}
+          </div>
+        </section>
+      )}
+      </>
+      ) : (
+        <section className="flex flex-col gap-2 px-3 pt-2.5">
+          {shopResults.map((s) => (
+            <StoreCard key={s.id} store={s} />
+          ))}
+          {shopResults.length === 0 && (
+            <p className="pt-6 text-center text-[12px] text-muted-foreground">
+              No shops found for “{query}”.
+            </p>
+          )}
+        </section>
+      )}
+
+
 
 
       {/* Request product */}

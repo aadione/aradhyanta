@@ -350,3 +350,60 @@ export const storeCategories = [
   { name: "Face Wash", image: facewash },
   { name: "Moisturizers", image: moisturizer },
 ];
+
+export type Store = {
+  id: string;
+  name: string;
+  category: string;
+  rating: number;
+  reviews: string;
+  orders: string;
+  products: number;
+  image: string;
+  verified?: boolean;
+};
+
+export const stores: Store[] = [
+  {
+    id: "shreeji-aradhya",
+    name: "Shreeji Aradhya",
+    category: "Personal Care & Wellness",
+    rating: 4.7,
+    reviews: "12.6K",
+    orders: "25K+",
+    products: storeProducts.length,
+    image: serum,
+    verified: true,
+  },
+  {
+    id: "sound-hub",
+    name: "Sound Hub Electronics",
+    category: "Audio & Wearables",
+    rating: 4.5,
+    reviews: "8.4K",
+    orders: "18K+",
+    products: 128,
+    image: headphones,
+    verified: true,
+  },
+  {
+    id: "daily-bazaar",
+    name: "Daily Bazaar Kirana",
+    category: "Grocery & Essentials",
+    rating: 4.4,
+    reviews: "6.1K",
+    orders: "40K+",
+    products: 320,
+    image: dairy,
+  },
+  {
+    id: "glow-house",
+    name: "Glow House Beauty",
+    category: "Beauty & Skincare",
+    rating: 4.6,
+    reviews: "4.9K",
+    orders: "12K+",
+    products: 96,
+    image: moisturizer,
+  },
+];
