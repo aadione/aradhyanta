@@ -101,25 +101,54 @@ function SearchPage() {
         </div>
       </header>
 
+      {/* Products / Shops tabs */}
+      <div className="mt-1 flex gap-4 border-b border-border px-3">
+        {(["Products", "Shops"] as const).map((t) => (
+          <button
+            key={t}
+            onClick={() => setTab(t)}
+            className={`-mb-px border-b-2 pb-2 pt-1 text-[13px] font-semibold ${
+              tab === t ? "border-primary text-primary" : "border-transparent text-muted-foreground"
+            }`}
+          >
+            {t}{" "}
+            <span className="text-[10px] font-normal">
+              ({t === "Products" ? results.length : shopResults.length})
+            </span>
+          </button>
+        ))}
+      </div>
+
       {/* Results head */}
-      <div className="flex items-baseline justify-between px-3 pt-1">
+      <div className="flex items-baseline justify-between px-3 pt-2">
         <p className="text-[14px] font-bold text-foreground">
-          {hasQuery ? <>Results for “{query}”</> : <>Popular products</>}{" "}
-          <span className="text-[11px] font-normal text-muted-foreground">({results.length} results)</span>
+          {hasQuery ? (
+            <>Results for “{query}”</>
+          ) : tab === "Shops" ? (
+            <>Popular shops</>
+          ) : (
+            <>Popular products</>
+          )}{" "}
+          <span className="text-[11px] font-normal text-muted-foreground">
+            ({tab === "Products" ? results.length : shopResults.length} results)
+          </span>
         </p>
 
-        <button
-          onClick={() =>
-            setSort((s) =>
-              s === "Relevance" ? "Price: Low to High" : s === "Price: Low to High" ? "Discount" : "Relevance",
-            )
-          }
-          className="flex shrink-0 items-center gap-1 text-[11px] text-muted-foreground"
-        >
-          Sort by <span className="font-semibold text-foreground">{sort}</span>
-          <ChevronDown size={12} />
-        </button>
+        {tab === "Products" && (
+          <button
+            onClick={() =>
+              setSort((s) =>
+                s === "Relevance" ? "Price: Low to High" : s === "Price: Low to High" ? "Discount" : "Relevance",
+              )
+            }
+            className="flex shrink-0 items-center gap-1 text-[11px] text-muted-foreground"
+          >
+            Sort by <span className="font-semibold text-foreground">{sort}</span>
+            <ChevronDown size={12} />
+          </button>
+        )}
       </div>
+
 
       {/* Filter chips */}
       <div className="rail mt-2 px-3">
