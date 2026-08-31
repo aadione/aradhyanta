@@ -38,6 +38,7 @@ function SearchPage() {
   const [query, setQuery] = useState(q ?? "");
   const [brandFilter, setBrandFilter] = useState<string[]>([]);
   const [sort, setSort] = useState<"Relevance" | "Price: Low to High" | "Discount">("Relevance");
+  const [tab, setTab] = useState<"Products" | "Shops">("Products");
 
   const term = query.trim().toLowerCase();
   const hasQuery = term.length > 0;
