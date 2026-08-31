@@ -94,9 +94,10 @@ function SearchPage() {
       {/* Results head */}
       <div className="flex items-baseline justify-between px-3 pt-1">
         <p className="text-[14px] font-bold text-foreground">
-          Results for “{query || "all"}”{" "}
+          {hasQuery ? <>Results for “{query}”</> : <>Popular products</>}{" "}
           <span className="text-[11px] font-normal text-muted-foreground">({results.length} results)</span>
         </p>
+
         <button
           onClick={() =>
             setSort((s) =>
