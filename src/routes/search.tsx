@@ -5,7 +5,7 @@ import { ArrowLeft, Search as SearchIcon, X, Mic, ShoppingCart, SlidersHorizonta
 import { allProducts, products } from "@/lib/data";
 import { useShop } from "@/lib/shop-store";
 import { BottomNav } from "@/components/BottomNav";
-import { ProductCardGrid3 } from "@/components/ProductCard";
+import { ProductCardRail } from "@/components/ProductCard";
 
 export const Route = createFileRoute("/search")({
   validateSearch: z.object({ q: z.string().optional() }),
@@ -34,24 +34,26 @@ function SearchPage() {
   const router = useRouter();
   const { q } = Route.useSearch();
   const { cartCount } = useShop();
-  const [query, setQuery] = useState(q ?? "wireless earbuds");
+  const [query, setQuery] = useState(q ?? "");
   const [brandFilter, setBrandFilter] = useState<string[]>([]);
   const [sort, setSort] = useState<"Relevance" | "Price: Low to High" | "Discount">("Relevance");
 
+  const term = query.trim().toLowerCase();
+  const hasQuery = term.length > 0;
+
   const results = useMemo(() => {
-    const term = query.trim().toLowerCase();
     let list = term
       ? allProducts.filter((p) =>
           `${p.brand} ${p.name} ${p.category}`.toLowerCase().includes(term.replace("wireless earbuds", "earbuds")),
         )
       : products;
-    if (!list.length) list = products;
     if (brandFilter.length) list = list.filter((p) => brandFilter.includes(p.brand));
     if (sort === "Price: Low to High") list = [...list].sort((a, b) => a.price - b.price);
     if (sort === "Discount")
       list = [...list].sort((a, b) => (b.mrp - b.price) / b.mrp - (a.mrp - a.price) / a.mrp);
     return list;
-  }, [query, brandFilter, sort]);
+  }, [term, brandFilter, sort]);
+
 
   const toggleBrand = (b: string) =>
     setBrandFilter((prev) => (prev.includes(b) ? prev.filter((x) => x !== b) : [...prev, b]));
@@ -92,9 +94,10 @@ function SearchPage() {
       {/* Results head */}
       <div className="flex items-baseline justify-between px-3 pt-1">
         <p className="text-[14px] font-bold text-foreground">
-          Results for “{query || "all"}”{" "}
+          {hasQuery ? <>Results for “{query}”</> : <>Popular products</>}{" "}
           <span className="text-[11px] font-normal text-muted-foreground">({results.length} results)</span>
         </p>
+
         <button
           onClick={() =>
             setSort((s) =>
@@ -172,12 +175,18 @@ function SearchPage() {
         </div>
       </section>
 
-      {/* 3-column results grid */}
-      <section className="grid grid-cols-3 gap-2 px-3 pt-2.5">
+      {/* Results grid — home-style cards */}
+      <section className="grid grid-cols-2 gap-2 px-3 pt-2.5">
         {results.map((p) => (
-          <ProductCardGrid3 key={p.id} product={p} />
+          <ProductCardRail key={p.id} product={p} fluid />
         ))}
       </section>
+      {hasQuery && results.length === 0 && (
+        <p className="px-3 pt-6 text-center text-[12px] text-muted-foreground">
+          No products found for “{query}”.
+        </p>
+      )}
+
 
       {/* Request product */}
       <section className="px-3 pt-3">
