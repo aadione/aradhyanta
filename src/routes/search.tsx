@@ -5,7 +5,7 @@ import { ArrowLeft, Search as SearchIcon, X, Mic, ShoppingCart, SlidersHorizonta
 import { allProducts, products } from "@/lib/data";
 import { useShop } from "@/lib/shop-store";
 import { BottomNav } from "@/components/BottomNav";
-import { ProductCardGrid3 } from "@/components/ProductCard";
+import { ProductCardRail } from "@/components/ProductCard";
 
 export const Route = createFileRoute("/search")({
   validateSearch: z.object({ q: z.string().optional() }),
