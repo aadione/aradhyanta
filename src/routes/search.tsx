@@ -2,10 +2,11 @@ import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { z } from "zod";
 import { ArrowLeft, Search as SearchIcon, X, Mic, ShoppingCart, SlidersHorizontal, ChevronDown, Tag } from "lucide-react";
-import { allProducts, products } from "@/lib/data";
+import { allProducts, products, stores } from "@/lib/data";
 import { useShop } from "@/lib/shop-store";
 import { BottomNav } from "@/components/BottomNav";
 import { ProductCardRail } from "@/components/ProductCard";
+import { StoreCard } from "@/components/StoreCard";
 
 export const Route = createFileRoute("/search")({
   validateSearch: z.object({ q: z.string().optional() }),
