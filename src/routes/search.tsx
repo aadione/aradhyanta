@@ -24,7 +24,7 @@ export const Route = createFileRoute("/search")({
       },
     ],
   }),
-  component: SearchPage;
+  component: SearchPage,
 });
 
 const brands = ["boAt", "Noise", "realme", "OnePlus"];
