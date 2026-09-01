@@ -337,7 +337,7 @@ function Home() {
               ))}
             </div>
           </div>
-          <div className="rail flex-1">
+          <div className="rail flex-1 md:grid md:grid-cols-6 md:gap-4">
             {flash.map((p) => (
               <ProductCardMini key={p.id} product={p} />
             ))}

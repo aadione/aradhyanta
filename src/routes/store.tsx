@@ -109,7 +109,7 @@ function StorePage() {
       </section>
 
       {/* Profile card */}
-      <section className="-mt-3 px-2.5 md:-mt-8 md:px-0">
+      <section className="-mt-3 px-2.5 md:mt-4 md:px-0">
         <div className="card-surface p-3">
           <div className="flex items-start gap-2.5">
             <span className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-ink text-center text-[8px] font-bold leading-tight text-amber-200">
