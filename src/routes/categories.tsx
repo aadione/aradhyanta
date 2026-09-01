@@ -53,8 +53,8 @@ function Categories() {
   const [slide, setSlide] = useState(0);
 
   return (
-    <div className="pb-[76px]">
-      <header className="sticky top-0 z-30 flex h-[52px] items-center gap-3 bg-background px-3">
+    <div className="pb-[76px] md:pb-8">
+      <header className="sticky top-0 z-30 flex h-[52px] items-center gap-3 bg-background px-3 md:hidden">
         <button onClick={() => router.history.back()} aria-label="Back">
           <ArrowLeft size={20} className="text-foreground" />
         </button>
@@ -72,14 +72,14 @@ function Categories() {
       </header>
 
       {/* Hero */}
-      <section className="px-3 pt-1">
+      <section className="px-3 pt-1 md:px-0 md:pt-6">
         <div className="relative overflow-hidden rounded-[18px] bg-tone-purple">
           <img
             src={heroCategory}
             alt="Big deals on top categories up to 60% off"
             width={1280}
             height={720}
-            className="h-[164px] w-full object-cover"
+            className="h-[164px] w-full object-cover md:h-[340px]"
           />
           <div className="absolute inset-y-0 left-0 flex w-[62%] flex-col justify-center bg-gradient-to-r from-tone-purple via-tone-purple/90 to-transparent pl-3.5">
             <p className="text-[13px] font-medium text-foreground">Super Savings</p>
@@ -114,9 +114,9 @@ function Categories() {
       </section>
 
       {/* Top categories */}
-      <section className="px-3 pt-3">
+      <section className="px-3 pt-3 md:px-0 md:pt-7">
         <SectionHead title="Top Categories" to="/search" />
-        <div className="rail mt-2 pb-1">
+        <div className="rail mt-2 pb-1 md:justify-center md:gap-7">
           {quickCategories.map((cat) => {
             const on = cat.name === activeCat;
             return (
@@ -165,15 +165,15 @@ function Categories() {
       </section>
 
       {/* Shop by category — 3 column grid */}
-      <section className="px-3 pt-3">
-        <h2 className="text-[16px] font-bold tracking-tight text-foreground">Shop by Category</h2>
-        <div className="mt-2 grid grid-cols-3 gap-2">
+      <section className="px-3 pt-3 md:px-0 md:pt-7">
+        <h2 className="text-[16px] font-bold tracking-tight text-foreground md:text-[22px]">Shop by Category</h2>
+        <div className="mt-2 grid grid-cols-3 gap-2 md:grid-cols-5 md:gap-4">
           {shopCategories.slice(0, 15).map((cat) => (
             <Link
               key={cat.name}
               to="/search"
               search={{ q: cat.short }}
-              className={`relative flex h-[112px] flex-col overflow-hidden rounded-xl p-2 ${tones[cat.tone]}`}
+              className={`relative flex h-[112px] flex-col overflow-hidden rounded-xl p-2 transition-transform hover:-translate-y-0.5 md:h-[160px] md:p-4 ${tones[cat.tone]}`}
             >
               <p className="text-[11.5px] font-semibold leading-tight text-foreground">{cat.name}</p>
               <p className="mt-0.5 text-[9.5px] text-muted-foreground">{cat.items}</p>
@@ -193,7 +193,7 @@ function Categories() {
 
       {/* Category deal banner */}
       <section className="px-3 pt-3">
-        <div className="flex items-center gap-2.5 rounded-xl bg-tone-green p-2.5">
+        <div className="flex items-center gap-2.5 rounded-xl bg-tone-green p-2.5 md:p-5">
           <Tag size={22} className="shrink-0 text-primary" />
           <span className="h-9 w-px bg-border" />
           <div className="flex-1">

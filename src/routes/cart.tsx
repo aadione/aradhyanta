@@ -26,9 +26,9 @@ function CartPage() {
   const delivery = cartTotal >= 299 || cartTotal === 0 ? 0 : 40;
 
   return (
-    <div className="pb-[76px]">
-      <header className="sticky top-0 z-30 flex h-[52px] items-center gap-3 border-b border-border bg-background px-3">
-        <button onClick={() => router.history.back()} aria-label="Back">
+    <div className="mx-auto max-w-[760px] pb-[76px] md:pb-8">
+      <header className="sticky top-0 z-30 flex h-[52px] items-center gap-3 border-b border-border bg-background px-3 md:static md:mt-6 md:h-auto md:border-0 md:px-0 md:pb-2">
+        <button onClick={() => router.history.back()} aria-label="Back" className="md:hidden">
           <ArrowLeft size={20} className="text-foreground" />
         </button>
         <h1 className="text-[19px] font-bold tracking-tight text-foreground">Cart</h1>
@@ -51,7 +51,7 @@ function CartPage() {
         </div>
       ) : (
         <>
-          <section className="space-y-2 px-3 pt-2.5">
+          <section className="space-y-2 px-3 pt-2.5 md:px-0">
             {cartLines.map(({ product, qty }) => (
               <div key={product.id} className="card-surface flex gap-2.5 p-2.5">
                 <Link
@@ -102,7 +102,7 @@ function CartPage() {
             ))}
           </section>
 
-          <section className="px-3 pt-2.5">
+          <section className="px-3 pt-2.5 md:px-0">
             <div className="card-surface p-2.5">
               <p className="text-[13px] font-bold text-foreground">Price Details</p>
               <Row label={`Item total (${cartLines.length} items)`} value={inr(mrpTotal)} />
@@ -118,7 +118,7 @@ function CartPage() {
             </div>
           </section>
 
-          <div className="fixed inset-x-0 bottom-[60px] z-40 mx-auto flex max-w-[430px] items-center gap-3 border-t border-border bg-card px-3 py-2">
+          <div className="fixed inset-x-0 bottom-[60px] z-40 mx-auto flex max-w-[430px] items-center gap-3 border-t border-border bg-card px-3 py-2 md:static md:mt-5 md:max-w-none md:rounded-xl md:border md:px-4 md:py-3 md:shadow-[var(--shadow-float)]">
             <div className="flex-1">
               <p className="text-[15px] font-extrabold text-foreground">{inr(cartTotal + delivery)}</p>
               <p className="text-[10px] text-muted-foreground">Incl. all taxes</p>

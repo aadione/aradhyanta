@@ -114,9 +114,9 @@ function Home() {
   );
 
   return (
-    <div className="pb-[76px]">
+    <div className="pb-[76px] md:pb-8">
       {/* Header */}
-      <header className="sticky top-0 z-30 bg-background px-3 pb-2 pt-3">
+      <header className="sticky top-0 z-30 bg-background px-3 pb-2 pt-3 md:hidden">
         <div className="flex items-center justify-between">
           <button
             className="flex items-start gap-1.5 text-left"
@@ -166,14 +166,14 @@ function Home() {
       </header>
 
       {/* Hero banner */}
-      <section className="px-3 pt-1">
+      <section className="px-3 pt-1 md:px-0 md:pt-6">
         <div className="relative overflow-hidden rounded-[18px]">
           <img
             src={heroMonsoon}
             alt="Monsoon Mega Sale up to 60% off on top brands"
             width={1280}
             height={720}
-            className="h-[186px] w-full object-cover"
+            className="h-[186px] w-full object-cover md:h-[380px]"
           />
           <div className="absolute inset-0 flex flex-col justify-center pl-3.5">
             <span className="label-xs w-fit rounded-md bg-primary px-1.5 py-0.5 text-primary-foreground">
@@ -218,8 +218,8 @@ function Home() {
       </section>
 
       {/* Trust bar */}
-      <section className="px-3 pt-2.5">
-        <div className="card-surface flex items-stretch px-1 py-2">
+      <section className="px-3 pt-2.5 md:px-0 md:pt-4">
+        <div className="card-surface flex items-stretch px-1 py-2 md:px-4 md:py-4">
           {trust.map((t, i) => (
             <div key={t.title} className="flex flex-1 items-center gap-1.5 px-1.5">
               {i > 0 && <span className="-ml-1.5 mr-0.5 h-7 w-px bg-border" />}
@@ -234,8 +234,8 @@ function Home() {
       </section>
 
       {/* Quick category rail */}
-      <section className="px-3 pt-3">
-        <div className="rail pb-1">
+      <section className="px-3 pt-3 md:px-0">
+        <div className="rail pb-1 md:justify-center md:gap-6">
           {quickCategories.map((cat) => {
             const on = cat.name === activeCat;
             return (
@@ -284,8 +284,8 @@ function Home() {
       </section>
 
       {/* Promo cards */}
-      <section className="px-3 pt-2">
-        <div className="grid grid-cols-3 gap-2">
+      <section className="px-3 pt-2 md:px-0 md:pt-5">
+        <div className="grid grid-cols-3 gap-2 md:gap-5">
           {promos.map((p) => (
             <Link
               key={p.kicker}
@@ -312,8 +312,8 @@ function Home() {
       </section>
 
       {/* Flash sale */}
-      <section className="px-3 pt-2.5">
-        <div className="flex items-stretch gap-2 rounded-xl bg-ink p-2.5">
+      <section className="px-3 pt-2.5 md:px-0 md:pt-5">
+        <div className="flex items-stretch gap-2 rounded-xl bg-ink p-2.5 md:gap-6 md:p-5">
           <div className="w-[92px] shrink-0">
             <p className="flex items-center gap-1 text-[12px] font-extrabold text-primary-foreground">
               <Zap size={13} className="fill-amber-300 text-amber-300" /> FLASH SALE
@@ -337,7 +337,7 @@ function Home() {
               ))}
             </div>
           </div>
-          <div className="rail flex-1">
+          <div className="rail flex-1 md:grid md:grid-cols-6 md:gap-4">
             {flash.map((p) => (
               <ProductCardMini key={p.id} product={p} />
             ))}
@@ -346,12 +346,12 @@ function Home() {
       </section>
 
       {/* Shop by category */}
-      <section className="px-3 pt-3.5">
+      <section className="px-3 pt-3.5 md:px-0 md:pt-8">
         <SectionHead title="Shop by Category" to="/categories" />
-        <div className="mt-2 grid grid-cols-6 gap-x-2 gap-y-2.5">
+        <div className="mt-2 grid grid-cols-6 gap-x-2 gap-y-2.5 md:grid-cols-12 md:gap-4">
           {shopCategories.slice(0, 11).map((cat) => (
             <Link key={cat.name} to="/categories" className="flex flex-col items-center gap-1">
-              <span className="flex h-[52px] w-full items-center justify-center overflow-hidden rounded-xl bg-surface">
+              <span className="flex h-[52px] w-full items-center justify-center overflow-hidden rounded-xl bg-surface md:h-[92px]">
                 <img
                   src={cat.image}
                   alt={cat.short}
@@ -376,11 +376,11 @@ function Home() {
       </section>
 
       {/* Best deals */}
-      <section className="pt-3.5">
-        <div className="px-3">
+      <section className="pt-3.5 md:pt-8">
+        <div className="px-3 md:px-0">
           <SectionHead title="Best Deals for You" to="/search" />
         </div>
-        <div className="rail mt-2 px-3 pb-1">
+        <div className="rail mt-2 px-3 pb-1 md:grid md:grid-cols-5 md:gap-4 md:px-0">
           {deals.map((p) => (
             <ProductCardRail key={p.id} product={p} />
           ))}
@@ -388,7 +388,7 @@ function Home() {
       </section>
 
       {/* Bottom offers */}
-      <section className="grid grid-cols-2 gap-2 px-3 pt-3">
+      <section className="grid grid-cols-2 gap-2 px-3 pt-3 md:gap-5 md:px-0 md:pt-6">
         <div className="rounded-xl bg-badge-purple p-2.5">
           <p className="text-[13px] font-bold leading-tight text-primary-foreground">Extra 10% OFF</p>
           <p className="text-[10px] text-primary-foreground/80">On ICICI Cards</p>
@@ -414,7 +414,7 @@ function Home() {
 export function SectionHead({ title, to }: { title: string; to: string }) {
   return (
     <div className="flex items-center justify-between">
-      <h2 className="text-[16px] font-bold tracking-tight text-foreground">{title}</h2>
+      <h2 className="text-[16px] font-bold tracking-tight text-foreground md:text-[22px]">{title}</h2>
       <Link to={to} className="flex items-center gap-1 text-[11px] font-semibold text-muted-foreground">
         View all <ArrowRight size={12} />
       </Link>

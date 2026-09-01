@@ -56,7 +56,7 @@ function StorePage() {
   if (sort === "Price") list = [...list].sort((a, b) => a.price - b.price);
 
   return (
-    <div className="pb-[76px]">
+    <div className="pb-[76px] md:pb-8">
       {/* Hero */}
       <section className="relative">
         <img
@@ -64,7 +64,7 @@ function StorePage() {
           alt="Shreeji Aradhya personal care products"
           width={1280}
           height={720}
-          className="h-[196px] w-full object-cover"
+          className="h-[196px] w-full object-cover md:h-[360px] md:rounded-b-[28px]"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20" />
         <div className="absolute inset-x-0 top-0 flex items-center gap-2 px-3 pt-3">
@@ -109,7 +109,7 @@ function StorePage() {
       </section>
 
       {/* Profile card */}
-      <section className="-mt-3 px-2.5">
+      <section className="-mt-3 px-2.5 md:mt-4 md:px-0">
         <div className="card-surface p-3">
           <div className="flex items-start gap-2.5">
             <span className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-ink text-center text-[8px] font-bold leading-tight text-amber-200">
@@ -182,7 +182,7 @@ function StorePage() {
       </section>
 
       {/* Store categories */}
-      <section className="px-3 pt-3">
+      <section className="px-3 pt-3 md:px-0 md:pt-6">
         <div className="flex items-center justify-between">
           <h2 className="text-[15px] font-bold text-foreground">Top Categories</h2>
           <span className="flex items-center gap-1 text-[11px] font-semibold text-muted-foreground">
@@ -245,7 +245,7 @@ function StorePage() {
       </div>
 
       {/* 2-column product grid */}
-      <section className="grid grid-cols-2 gap-2 px-3">
+      <section className="grid grid-cols-2 gap-2 px-3 md:grid-cols-4 md:gap-4 md:px-0">
         {list.map((p) => (
           <ProductCardGrid2 key={p.id} product={p} />
         ))}

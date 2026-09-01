@@ -62,9 +62,9 @@ function ProductPage() {
   const wished = wishlist.includes(product.id);
 
   return (
-    <div className="pb-[130px]">
+    <div className="mx-auto max-w-[900px] pb-[130px] md:pb-8">
       {/* Hero */}
-      <section className="relative bg-gradient-to-b from-primary-soft to-surface pb-3 pt-3">
+      <section className="relative bg-gradient-to-b from-primary-soft to-surface pb-3 pt-3 md:mt-6 md:rounded-2xl">
         <div className="absolute inset-x-0 top-0 flex items-center justify-between px-3 pt-3">
           <button
             onClick={() => router.history.back()}
@@ -95,7 +95,7 @@ function ProductPage() {
           alt={product.name}
           width={768}
           height={768}
-          className="mx-auto h-[236px] w-[80%] object-contain"
+          className="mx-auto h-[236px] w-[80%] object-contain md:h-[380px] md:w-[52%]"
         />
 
         <div className="absolute bottom-10 left-0 space-y-1.5">
@@ -127,7 +127,7 @@ function ProductPage() {
       </section>
 
       {/* Thumbnails */}
-      <section className="rail px-3 pt-2.5">
+      <section className="rail px-3 pt-2.5 md:px-0">
         {[0, 1, 2, 3, 4].map((i) => (
           <button
             key={i}
@@ -154,7 +154,7 @@ function ProductPage() {
       </section>
 
       {/* Info */}
-      <section className="px-3 pt-3">
+      <section className="px-3 pt-3 md:px-0">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
             <p className="text-[12px] font-semibold text-primary">{product.brand}</p>
@@ -185,7 +185,7 @@ function ProductPage() {
       </section>
 
       {/* Features */}
-      <section className="px-3 pt-2.5">
+      <section className="px-3 pt-2.5 md:px-0">
         <div className="card-surface grid grid-cols-4 py-2.5">
           {specs.map((s) => (
             <span key={s.title} className="px-1 text-center">
@@ -202,7 +202,7 @@ function ProductPage() {
       </section>
 
       {/* Offers */}
-      <section className="px-3 pt-2">
+      <section className="px-3 pt-2 md:px-0">
         <div className="card-surface p-2.5">
           <p className="flex items-center gap-1.5 text-[12.5px] font-bold text-foreground">
             <Tag size={14} className="text-primary" /> Offers &amp; Discounts
@@ -219,7 +219,7 @@ function ProductPage() {
       </section>
 
       {/* Delivery */}
-      <section className="px-3 pt-2">
+      <section className="px-3 pt-2 md:px-0">
         <div className="card-surface flex items-start gap-2 p-2.5">
           <Truck size={16} className="mt-0.5 shrink-0 text-foreground" />
           <div className="flex-1">
@@ -233,7 +233,7 @@ function ProductPage() {
         </div>
       </section>
 
-      <section className="px-3 pt-2">
+      <section className="px-3 pt-2 md:px-0">
         <Link
           to="/store"
           className="card-surface flex items-center justify-between p-2.5 text-[12px] font-semibold text-foreground"
@@ -243,7 +243,7 @@ function ProductPage() {
       </section>
 
       {/* Sticky purchase bar */}
-      <div className="fixed inset-x-0 bottom-[60px] z-40 mx-auto flex max-w-[430px] items-center gap-2 border-t border-border bg-card px-3 py-2">
+      <div className="fixed inset-x-0 bottom-[60px] z-40 mx-auto flex max-w-[430px] items-center gap-2 border-t border-border bg-card px-3 py-2 md:static md:mt-5 md:max-w-none md:rounded-xl md:border md:px-4 md:py-3 md:shadow-[var(--shadow-float)]">
         <Link
           to="/cart"
           aria-label="Cart"
