@@ -31,7 +31,7 @@ export function ProductCardGrid3({ product }: { product: Product }) {
   const { add, wishlist, toggleWish } = useShop();
   const wished = wishlist.includes(product.id);
   return (
-    <div className="relative flex flex-col overflow-hidden rounded-xl border border-border bg-card">
+    <div className="relative flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-all duration-200 md:hover:-translate-y-1 md:hover:shadow-[var(--shadow-float)]">
       <DiscountBadge pct={off(product)} />
       <button
         onClick={() => toggleWish(product.id)}
@@ -47,7 +47,7 @@ export function ProductCardGrid3({ product }: { product: Product }) {
           loading="lazy"
           width={768}
           height={768}
-          className="mx-auto h-[86px] w-full object-contain"
+          className="mx-auto h-[86px] w-full object-contain md:h-[150px]"
         />
       </Link>
       <div className="flex flex-1 flex-col px-2 pb-1.5 pt-1.5">
@@ -55,7 +55,7 @@ export function ProductCardGrid3({ product }: { product: Product }) {
         <Link
           to="/product/$id"
           params={{ id: product.id }}
-          className="mt-0.5 line-clamp-2 text-[11px] font-medium leading-snug text-foreground"
+          className="mt-0.5 line-clamp-2 text-[11px] font-medium leading-snug text-foreground md:text-[14px]"
         >
           {product.name}
         </Link>
@@ -63,7 +63,7 @@ export function ProductCardGrid3({ product }: { product: Product }) {
           <Rating value={product.rating} reviews={product.reviews} />
         </div>
         <div className="mt-1 flex items-baseline gap-1">
-          <span className="text-[13px] font-bold text-foreground">{inr(product.price)}</span>
+          <span className="text-[13px] font-bold text-foreground md:text-[17px]">{inr(product.price)}</span>
           <span className="text-[10px] text-subtle line-through">{inr(product.mrp)}</span>
         </div>
         {product.tag === "Bestseller" && (
@@ -92,7 +92,7 @@ export function ProductCardGrid3({ product }: { product: Product }) {
 export function ProductCardGrid2({ product }: { product: Product }) {
   const { add } = useShop();
   return (
-    <div className="relative flex flex-col overflow-hidden rounded-xl border border-border bg-card">
+    <div className="relative flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-all duration-200 md:hover:-translate-y-1 md:hover:shadow-[var(--shadow-float)]">
       {product.tag ? (
         <span
           className={`label-xs absolute left-0 top-0 z-10 rounded-br-lg rounded-tl-xl px-1.5 py-0.5 text-white ${
@@ -111,14 +111,14 @@ export function ProductCardGrid2({ product }: { product: Product }) {
           loading="lazy"
           width={768}
           height={768}
-          className="mx-auto h-[110px] w-full object-contain"
+          className="mx-auto h-[110px] w-full object-contain md:h-[190px]"
         />
       </Link>
       <div className="px-2 pb-2 pt-1.5">
         <Link
           to="/product/$id"
           params={{ id: product.id }}
-          className="line-clamp-2 text-[12px] font-medium leading-snug text-foreground"
+          className="line-clamp-2 text-[12px] font-medium leading-snug text-foreground md:text-[14px]"
         >
           {product.name}
         </Link>
@@ -126,7 +126,7 @@ export function ProductCardGrid2({ product }: { product: Product }) {
           <Rating value={product.rating} reviews={product.reviews} />
         </div>
         <div className="mt-1 flex items-baseline gap-1">
-          <span className="text-[14px] font-bold text-foreground">{inr(product.price)}</span>
+          <span className="text-[14px] font-bold text-foreground md:text-[18px]">{inr(product.price)}</span>
           <span className="text-[10px] text-subtle line-through">{inr(product.mrp)}</span>
         </div>
         <div className="mt-1 flex items-center justify-between">
@@ -149,7 +149,7 @@ export function ProductCardRail({ product, fluid = false }: { product: Product; 
   const { add } = useShop();
   return (
     <div
-      className={`relative overflow-hidden rounded-xl border border-border bg-card ${
+      className={`relative overflow-hidden rounded-xl border border-border bg-card transition-all duration-200 md:hover:-translate-y-1 md:hover:shadow-[var(--shadow-float)] ${
         fluid ? "w-full" : "w-[150px] shrink-0"
       }`}
     >
@@ -162,7 +162,7 @@ export function ProductCardRail({ product, fluid = false }: { product: Product; 
           loading="lazy"
           width={768}
           height={768}
-          className="mx-auto h-[88px] w-full object-contain"
+          className="mx-auto h-[88px] w-full object-contain md:h-[170px]"
         />
       </Link>
       <div className="px-2 pb-2 pt-1.5">
@@ -170,14 +170,14 @@ export function ProductCardRail({ product, fluid = false }: { product: Product; 
         <Link
           to="/product/$id"
           params={{ id: product.id }}
-          className="line-clamp-2 text-[11px] font-medium leading-snug text-foreground"
+          className="line-clamp-2 text-[11px] font-medium leading-snug text-foreground md:text-[14px]"
         >
           {product.name}
         </Link>
         <div className="mt-1 flex items-end justify-between">
           <div>
             <div className="flex items-baseline gap-1">
-              <span className="text-[13px] font-bold text-foreground">{inr(product.price)}</span>
+              <span className="text-[13px] font-bold text-foreground md:text-[17px]">{inr(product.price)}</span>
               <span className="text-[10px] text-subtle line-through">{inr(product.mrp)}</span>
             </div>
             <div className="mt-0.5">
@@ -203,7 +203,7 @@ export function ProductCardMini({ product }: { product: Product }) {
     <Link
       to="/product/$id"
       params={{ id: product.id }}
-      className="w-[74px] shrink-0 rounded-lg bg-card px-1.5 pb-1.5 pt-1.5 text-center"
+      className="w-[74px] shrink-0 rounded-lg bg-card md:w-[96px] px-1.5 pb-1.5 pt-1.5 text-center"
     >
       <img
         src={product.image}
@@ -211,7 +211,7 @@ export function ProductCardMini({ product }: { product: Product }) {
         loading="lazy"
         width={768}
         height={768}
-        className="mx-auto h-[46px] w-full object-contain"
+        className="mx-auto h-[46px] w-full object-contain md:h-[64px]"
       />
       <p className="mt-1 text-[11px] font-bold text-foreground">{inr(product.price)}</p>
       <p className="text-[9px] text-subtle line-through">{inr(product.mrp)}</p>
