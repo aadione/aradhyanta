@@ -56,7 +56,7 @@ function StorePage() {
   if (sort === "Price") list = [...list].sort((a, b) => a.price - b.price);
 
   return (
-    <div className="pb-[76px]">
+    <div className="pb-[76px] md:pb-8">
       {/* Hero */}
       <section className="relative">
         <img
@@ -64,7 +64,7 @@ function StorePage() {
           alt="Shreeji Aradhya personal care products"
           width={1280}
           height={720}
-          className="h-[196px] w-full object-cover"
+          className="h-[196px] w-full object-cover md:h-[360px] md:rounded-b-[28px]"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20" />
         <div className="absolute inset-x-0 top-0 flex items-center gap-2 px-3 pt-3">

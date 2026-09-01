@@ -18,7 +18,7 @@ export function BottomNav({ active, cartSlot = false }: { active: Item; cartSlot
   ];
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 mx-auto flex h-[60px] max-w-[430px] items-stretch border-t border-border bg-card pb-[env(safe-area-inset-bottom)]">
+    <nav className="fixed inset-x-0 bottom-0 z-40 mx-auto flex h-[60px] md:hidden max-w-[430px] items-stretch border-t border-border bg-card pb-[env(safe-area-inset-bottom)]">
       {items.map((it) => {
         const on = it.key === active;
         const Icon = it.icon;

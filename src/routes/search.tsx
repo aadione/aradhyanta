@@ -69,9 +69,9 @@ function SearchPage() {
     setBrandFilter((prev) => (prev.includes(b) ? prev.filter((x) => x !== b) : [...prev, b]));
 
   return (
-    <div className="pb-[76px]">
+    <div className="pb-[76px] md:pb-8">
       {/* Search header */}
-      <header className="sticky top-0 z-30 bg-background px-3 pb-2 pt-2.5">
+      <header className="sticky top-0 z-30 bg-background px-3 pb-2 pt-2.5 md:hidden">
         <div className="flex items-center gap-2.5">
           <button onClick={() => router.history.back()} aria-label="Back">
             <ArrowLeft size={20} className="text-foreground" />
@@ -102,7 +102,7 @@ function SearchPage() {
       </header>
 
       {/* Products / Shops tabs */}
-      <div className="mt-1 flex gap-4 border-b border-border px-3">
+      <div className="mt-1 flex gap-4 border-b border-border px-3 md:mt-6 md:px-0">
         {(["Products", "Shops"] as const).map((t) => (
           <button
             key={t}
@@ -120,7 +120,7 @@ function SearchPage() {
       </div>
 
       {/* Results head */}
-      <div className="flex items-baseline justify-between px-3 pt-2">
+      <div className="flex items-baseline justify-between px-3 pt-2 md:px-0 md:pt-4">
         <p className="text-[14px] font-bold text-foreground">
           {hasQuery ? (
             <>Results for “{query}”</>
@@ -151,7 +151,7 @@ function SearchPage() {
       {tab === "Products" ? (
       <>
       {/* Filter chips */}
-      <div className="rail mt-2 px-3">
+      <div className="rail mt-2 px-3 md:px-0">
         <button className="flex shrink-0 items-center gap-1.5 rounded-lg border border-primary px-2.5 py-1.5 text-[12px] font-semibold text-primary">
           <SlidersHorizontal size={13} /> Filter
         </button>
@@ -166,7 +166,7 @@ function SearchPage() {
       </div>
 
       {/* Brand chips */}
-      <div className="rail mt-2 px-3">
+      <div className="rail mt-2 px-3 md:px-0">
         <button
           onClick={() => setBrandFilter([])}
           className={`shrink-0 rounded-full border px-3 py-1 text-[12px] ${
@@ -198,8 +198,8 @@ function SearchPage() {
       </div>
 
       {/* Promo banner */}
-      <section className="px-3 pt-2.5">
-        <div className="relative flex items-center gap-2 overflow-hidden rounded-xl bg-tone-green p-2.5">
+      <section className="px-3 pt-2.5 md:px-0 md:pt-5">
+        <div className="relative flex items-center gap-2 overflow-hidden rounded-xl bg-tone-green p-2.5 md:p-5">
           <Tag size={20} className="shrink-0 text-primary" />
           <div className="min-w-0 flex-1">
             <p className="text-[12px] font-bold text-foreground">Best Deals on</p>
@@ -215,7 +215,7 @@ function SearchPage() {
       </section>
 
       {/* Results grid — home-style cards */}
-      <section className="grid grid-cols-2 gap-2 px-3 pt-2.5">
+      <section className="grid grid-cols-2 gap-2 px-3 pt-2.5 md:grid-cols-5 md:gap-4 md:px-0 md:pt-5">
         {results.map((p) => (
           <ProductCardRail key={p.id} product={p} fluid />
         ))}
@@ -228,14 +228,14 @@ function SearchPage() {
 
       {/* Shops matching the query */}
       {shopResults.length > 0 && (
-        <section className="px-3 pt-3">
+        <section className="px-3 pt-3 md:px-0 md:pt-7">
           <div className="flex items-baseline justify-between">
             <h2 className="text-[14px] font-bold text-foreground">Shops you may like</h2>
             <button onClick={() => setTab("Shops")} className="text-[11px] font-semibold text-primary">
               View all
             </button>
           </div>
-          <div className="mt-2 flex flex-col gap-2">
+          <div className="mt-2 grid gap-2 md:grid-cols-2 md:gap-4">
             {shopResults.slice(0, 2).map((s) => (
               <StoreCard key={s.id} store={s} />
             ))}
@@ -244,7 +244,7 @@ function SearchPage() {
       )}
       </>
       ) : (
-        <section className="flex flex-col gap-2 px-3 pt-2.5">
+        <section className="grid gap-2 px-3 pt-2.5 md:grid-cols-2 md:gap-4 md:px-0 md:pt-5">
           {shopResults.map((s) => (
             <StoreCard key={s.id} store={s} />
           ))}
@@ -260,8 +260,8 @@ function SearchPage() {
 
 
       {/* Request product */}
-      <section className="px-3 pt-3">
-        <div className="flex items-center gap-2 rounded-xl bg-tone-green p-2.5">
+      <section className="px-3 pt-3 md:px-0 md:pt-7">
+        <div className="flex items-center gap-2 rounded-xl bg-tone-green p-2.5 md:p-5">
           <Tag size={18} className="shrink-0 text-primary" />
           <div className="flex-1">
             <p className="text-[11.5px] font-bold text-foreground">Can’t find what you’re looking for?</p>
