@@ -95,7 +95,7 @@ function ProductPage() {
           alt={product.name}
           width={768}
           height={768}
-          className="mx-auto h-[236px] w-[80%] object-contain"
+          className="mx-auto h-[236px] w-[80%] object-contain md:h-[380px] md:w-[52%]"
         />
 
         <div className="absolute bottom-10 left-0 space-y-1.5">
