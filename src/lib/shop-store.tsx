@@ -43,6 +43,21 @@ function itemPayload(userId: string, cartId: string, line: CartLine) {
   };
 }
 
+async function writeLine(userId: string, cartId: string, line: CartLine) {
+  const existing = await supabase
+    .from("cart_items")
+    .select("id")
+    .eq("user_id", userId)
+    .eq("product_id", line.id)
+    .limit(1)
+    .maybeSingle();
+  if (existing.data?.id) {
+    await supabase.from("cart_items").update({ quantity: line.qty }).eq("id", existing.data.id);
+  } else {
+    await supabase.from("cart_items").insert(itemPayload(userId, cartId, line));
+  }
+}
+
 export function ShopProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
   const [cart, setCart] = useState<CartLine[]>([]);
@@ -95,14 +110,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
         }
         if (cancelled) return;
         setCart(merged);
-        if (merged.length) {
-          await supabase
-            .from("cart_items")
-            .upsert(
-              merged.map((l) => itemPayload(user.id, cartId, l)),
-              { onConflict: "cart_id,product_id" },
-            );
-        }
+        for (const l of merged) await writeLine(user.id, cartId, l);
       } catch {
         /* keep local cart working */
       }
@@ -122,9 +130,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
         if (removedId) {
           await supabase.from("cart_items").delete().eq("user_id", userId).eq("product_id", removedId);
         } else if (line) {
-          await supabase
-            .from("cart_items")
-            .upsert([itemPayload(userId, cartId, line)], { onConflict: "cart_id,product_id" });
+          await writeLine(userId, cartId, line);
         }
       } catch {
         /* ignore */
